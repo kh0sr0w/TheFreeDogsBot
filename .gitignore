@@ -1,0 +1,92 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# C extensions
+*.so
+
+# Virtual Environment
+env/
+venv/
+ENV/
+VENV/
+.env
+.venv
+
+# Install logs
+pip-log.txt
+pip-delete-this-directory.txt
+
+# Unit test / coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+*.cover
+*.log
+.cache
+coverage.xml
+*.coverage
+
+# Pytest cache
+.pytest_cache/
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+
+# MyPy
+.mypy_cache/
+.dmypy.json
+dmypy.json
+
+# Environments
+.env
+.envrc
+.vscode/
+.idea/
+*.vscode/
+*.idea/
+
+# Other IDE settings
+.project
+.pydevproject
+
+# Database files
+*.sqlite3
+*.db
+
+# Pyrogram session files
+*.session
+*.session-journal
+
+# Logs
+*.log
+
+# Bot specific configuration
+bot_config.json
+bot_config.yaml
+
+# Ignore compiled and temporary files
+*.swp
+*.swo
+
+# Deployment and remote files
+remote_settings.py
+.env.prod
+.env.dev
+
+# Ignore secrets
+secrets.json
+secret_keys.txt
+
+# Ignore node_modules if you use JavaScript with your bot
+node_modules/
+
+# Temporary files
+*.tmp
+*.bak
+*.backup
+*~
