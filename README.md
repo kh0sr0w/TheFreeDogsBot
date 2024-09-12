@@ -92,4 +92,3 @@ The bot will now start interacting with the Free Dogs Bot on Telegram according 
 
 ## Discussion
 If you have any questions or need help, feel free to reach out here: [Khosrow](https://t.me/kh0sr0w)
-```
