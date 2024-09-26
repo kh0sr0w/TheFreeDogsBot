@@ -7,3 +7,4 @@ Pyrogram==2.0.106
 TgCrypto==1.2.5
 tzdata==2024.1
 aiocfscrape==1.0.0
+colorama

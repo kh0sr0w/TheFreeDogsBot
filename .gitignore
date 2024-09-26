@@ -89,4 +89,6 @@ node_modules/
 *.tmp
 *.bak
 *.backup
-*~
+
+# Igno sample data
+sample.json

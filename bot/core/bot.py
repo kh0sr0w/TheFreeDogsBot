@@ -3,6 +3,7 @@ import aiohttp
 import random
 import hashlib
 from time import time
+from datetime import datetime, timezone, timedelta
 from urllib.parse import unquote
 from typing import Any, Dict
 from aiohttp_proxy import ProxyConnector
@@ -26,7 +27,6 @@ def get_hash(collect_amount, collect_seq_no):
     concatenated_string = f"{collect_amount}{collect_seq_no}{salt}"
     return hashlib.md5(concatenated_string.encode()).hexdigest()
 
-
 class CryptoBot:
     def __init__(self, tg_client: Client):
         self.session_name = tg_client.name
@@ -40,6 +40,9 @@ class CryptoBot:
         self.errors = 0
         self.authorized = False
         self.access_token = ''
+        self.userToDayNowClick = 0
+        self.userToDayMaxClick = 0
+
 
     async def get_tg_web_data(self, proxy: str | None) -> str:
         if proxy:
@@ -97,8 +100,8 @@ class CryptoBot:
             log.info(f"{self.session_name} | Trying to login...")
             self.http_client.headers.pop('Authorization', None)
             # to get query data un comment the below code
-            # with open('query.txt', 'a') as file:
-            #     file.write(init_data + '\n')
+            with open('query.txt', 'a') as file:
+                file.write(init_data + '\n')
 
             json_data = {'initData': init_data}
             await self.http_client.options(api_auth, data=json_data)
@@ -252,21 +255,36 @@ class CryptoBot:
                             self.collect_seq_no = game_data.get('collectSeqNo', 0)
                             self.coin_pool_left = game_data.get('coinPoolLeft', 0)
                             self.coin_balance = game_data.get('currentAmount', 0)
+                            self.userToDayNowClick = game_data.get('userToDayNowClick', 0)
+                            self.userToDayMaxClick = game_data.get('userToDayMaxClick', 0)
                             
-                            taps = random.randint(config.TAPS_PER_SECOND[0], config.TAPS_PER_SECOND[1])
-                            taps = min(taps, int(self.coin_pool_left))
+                            # If the user has reached the max clicks for today, sleep until 00:00 UTC
+                            if self.userToDayNowClick >= 10000:
+                                current_time = datetime.now(timezone.utc)
+                                log.info(f"{self.session_name} | Max clicks reached for the day, waiting until 00:00 UTC.")
+                                
+                                # Calculate seconds until 00:00 UTC of the next day
+                                next_reset_time = current_time.replace(hour=0, minute=0, second=0, microsecond=0) + timedelta(days=1)
+                                sleep_duration = (next_reset_time - current_time).total_seconds()
 
-                            if taps < 40:
-                                log.info(f"{self.session_name} | Not enough taps available, sleep for 160 sec.")
-                                await asyncio.sleep(160)
-                                break
+                                await asyncio.sleep(sleep_duration)
+                            else:
 
-                            await self.tap(taps)
+                                taps = random.randint(config.TAPS_PER_SECOND[0], config.TAPS_PER_SECOND[1])
+                                taps = min(taps, int(self.coin_pool_left))
+                                # if taps <40, sleep 160 sec 
+                                if taps < 40:
+                                    log.info(f"{self.session_name} | Not enough taps available, sleep for 160 sec.")
+                                    await asyncio.sleep(160)
+                                    break
+                                # if self.userToDayNowClick is >= 10000, sleep untill time is 00:00 in UTC, otherwise click
 
-                            log.info(f"{self.session_name} | "
-                                     f"Tapped {taps} times | Coin Pool Left: {int(self.coin_pool_left) - taps} | "
-                                     f"Total coins: {int(self.coin_balance) + taps}")
-                            await asyncio.sleep(delay=0.5)
+                                await self.tap(taps)
+
+                                log.info(f"{self.session_name} | "
+                                        f"Tapped {taps} times | Coin Pool Left: {int(self.coin_pool_left) - taps} | "
+                                        f"Total coins: {int(self.coin_balance) + taps}")
+                                await asyncio.sleep(delay=0.5)
 
                     await asyncio.sleep(delay=config.DEFAULT_RATE_LIMIT)
 

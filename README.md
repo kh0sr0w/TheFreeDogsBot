@@ -1,4 +1,4 @@
-﻿
+﻿﻿
 # The Free Dogs Bot
 
 🖱️ Auto-clicker for [https://t.me/theFreeDogs_bot](https://t.me/theFreeDogs_bot/app?startapp=ref_nqrF9bYq)
@@ -14,11 +14,12 @@
 | Multithreading                                               |     ✅     |
 | Proxy binding to session                                     |     ✅     |
 | Support for tdata / pyrogram `.session` / telethon `.session`|     ✅     |
+| Support for Query Data if not using `.seesion`               |     ✅     |
 
 ## Settings
 | Setting           | Description                                                                 |
 |-------------------|-----------------------------------------------------------------------------|
-| **API_ID / API_HASH** | Platform data from which to run the Telegram session (default - android)  |
+| **API_ID / API_HASH** | Platform data from which to run the Telegram session                    |
 
 ## Prerequisites
 Before you begin, make sure you have the following installed:
@@ -83,7 +84,17 @@ Finally, run the bot with the following command:
 ```bash
 python main.py
 ```
+### 6. If running with query
+To use query ID use the following command/sittings:
 
+add your queryIds each in seperate lines like bellow on the query.txt file:
+query_id=First query.....
+query_id=Second query....
+query_id= and soo on ....
+
+```bash
+python querytapper.py
+```
 The bot will now start interacting with the Free Dogs Bot on Telegram according to the settings provided.
 
 ## Telegram Channel

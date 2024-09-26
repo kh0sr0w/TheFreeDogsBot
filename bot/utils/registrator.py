@@ -1,7 +1,7 @@
 from pyrogram import Client
 
 from bot.utils.settings import config
-from bot.utils import logger
+from bot.utils.logger import log
 
 
 async def register_sessions() -> None:
@@ -26,4 +26,4 @@ async def register_sessions() -> None:
     async with session:
         user_data = await session.get_me()
 
-    logger.log(f'Session added successfully @{user_data.username} | {user_data.first_name} {user_data.last_name}')
+    log.info(f'Session added successfully @{user_data.username} | {user_data.first_name} {user_data.last_name}')
