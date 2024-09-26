@@ -87,9 +87,12 @@ python main.py
 ### 6. If running with query
 To use query ID use the following command/sittings:
 
-add your queryIds each in seperate lines like bellow on the query.txt file:
+Add your queryIds each in seperate lines like bellow on the query.txt file:
+
 query_id=First query.....
+
 query_id=Second query....
+
 query_id= and soo on ....
 
 ```bash
