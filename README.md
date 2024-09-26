@@ -24,7 +24,6 @@
 ## Prerequisites
 Before you begin, make sure you have the following installed:
 - [Python](https://www.python.org/downloads/) **version 3.10+**
-- Telegram API_ID and API_HASH (you can get them [here](https://my.telegram.org/auth))
 
 ## Obtaining API Keys
 1. Go to [my.telegram.org](https://my.telegram.org) and log in using your phone number.
