@@ -36,8 +36,9 @@ Before you begin, make sure you have the following installed:
 First, clone the repository to your local machine:
 
 ```bash
-git clone https://github.com/kh0sr0w/free-dogs-bot.git
-cd free-dogs-bot
+git clone 
+https://github.com/kh0sr0w/TheFreeDogsBot.git
+cd TheFreeDogsBot
 ```
 
 ### 2. Create a Virtual Environment (Recommended)
